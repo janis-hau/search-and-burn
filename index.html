@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0">
+        <title>Search and burn</title>
+    </head>
+
+    <body>
+
+        <div class="container">
+            <div class="tiles">
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+                <div class="tile"></div>
+            </div>
+            <div class="bg-layer"></div>
+            <div class="bg-layer bg-layer--mirrored"></div>
+            <div class="tile-overlays">
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+                <div class="tile-overlay"></div>
+            </div>
+        </div>
+
+
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: inherit;
+            }
+
+            html {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: black;
+                overflow: hidden;
+            }
+
+            .container {
+                display: grid;
+                position: relative;
+                width: 420px;
+                background-image: radial-gradient(circle, rgba(255, 255, 150, 1) 0%, rgba(255, 100, 100, 0.3) 15%, rgba(50, 150, 255, 0.2) 20%, rgba(0, 0, 0, 0) 35%);
+                background-size: 50% 50%;
+                background-position: 150% 150%;
+                background-repeat: no-repeat;
+                animation: glow-bg 30s infinite ease-in-out, spin 120s infinite linear;
+                position: relative;
+                filter: brightness(1) blur(0);
+                transition: scale 0.2s ease, filter 0.2s ease;
+            }
+
+            .container::after {
+                content: '';
+                display: block;
+            }
+
+            .bg-layer,
+            .container::after {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 5;
+                background-image: inherit;
+                background-size: inherit;
+                background-position: inherit;
+                background-repeat: inherit;
+                animation: glow-bg 30s infinite ease-in-out;
+                mix-blend-mode: lighten;
+                filter: drop-shadow(0 0 15px rgba(255, 187, 0, 0.8)) drop-shadow(0 0 30px rgba(0, 123, 255, 0.5));
+            }
+
+            .bg-layer--mirrored,
+            .container::after {
+                transform: scale(-1);
+            }
+
+            .bg-layer--mirrored {
+                z-index: 5;
+            }
+
+            .container::after {
+                z-index: -5;
+            }
+
+            .tiles,
+            .tile-overlays {
+                display: grid;
+                grid-template-columns: repeat(4, calc(25% - 3px));
+                gap: 4px;
+                padding: 4px;
+            }
+
+            .tile,
+            .tile-overlay {
+                aspect-ratio: 1;
+            }
+
+            .tile {
+                background-color: #000;
+            }
+
+            .tile-overlays {
+                position: absolute;
+                z-index: 10;
+                width: 100%;
+            }
+
+            .tile-overlay {
+                position: relative;
+            }
+
+            .tile-overlay::before {
+                background: radial-gradient(ellipse at center, rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0.5) 85%, rgba(0, 0, 0, 0.25) 90%, rgba(0, 0, 0, 0) 100%);
+                position: absolute;
+                top: 4px;
+                left: 4px;
+                right: 4px;
+                bottom: 4px;
+                content: '';
+                display: block;
+            }
+
+            @keyframes spin {
+                from {
+                    transform: rotate(0deg);
+                }
+
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            @keyframes glow-bg {
+                0% {
+                    background-position: -50% -50%;
+                }
+
+                6.25% {
+                    background-position: 0 -50%;
+                }
+
+                12.5% {
+                    background-position: 0 0;
+                }
+
+                18.75% {
+                    background-position: 50% 0;
+                }
+
+                25% {
+                    background-position: 50% 50%;
+                }
+
+                31.25% {
+                    background-position: 100% 50%;
+                }
+
+                37.5% {
+                    background-position: 100% 100%;
+                }
+
+                43.75% {
+                    background-position: 150% 100%;
+                }
+
+                50% {
+                    background-position: 150% 150%;
+                }
+
+                56.25% {
+                    background-position: 100% 150%;
+                }
+
+                62.5% {
+                    background-position: 100% 100%;
+                }
+
+                68.75% {
+                    background-position: 50% 100%;
+                }
+
+                75% {
+                    background-position: 50% 50%;
+                }
+
+                81.25% {
+                    background-position: 0% 50%;
+                }
+
+                87.5% {
+                    background-position: 0% 0%;
+                }
+
+                93.75% {
+                    background-position: -50% 0%;
+                }
+
+                100% {
+                    background-position: -50% -50%;
+                }
+            }
+        </style>
+
+    </body>
+
+</html>
